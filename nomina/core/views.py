@@ -1,14 +1,15 @@
 from django.shortcuts import render
 from datetime import datetime, timedelta
+from .models import nomina
 # Create your views here.
 def form(request):
     empleado = ''
     fechaInicio = '2023-03-17'
     fechaFin = '2023-03-17'
-    horasDiurnas = 0
+    '''horasDiurnas = 0
     horasNocturnas = 0
     horasTotales = 0
-    horasOrdinarias = 0
+    horasOrdinarias = 0'''
     extrasDiurnas = 0
     extrasNocturnas = 0
     recargosNocturnos = 0
@@ -16,11 +17,11 @@ def form(request):
     festivos = 0
     extrasDF = 0
     extrasNF = 0
-    valorOrdinaria = 4833
+    #valorOrdinaria = 4833
     valorED = 6042
     valorEN = 8458
     valorRDF = 3625
-    valorFestivo = 8458
+    #valorFestivo = 8458
     valorExtrasDF = 9665
     valorExtrasNF = 12081
     valorRN = 1692
@@ -31,10 +32,10 @@ def form(request):
         empleado = request.POST['empleado']
         fechaInicio = request.POST['fechaInicio']
         fechaFin = request.POST['fechaFin']
-        horasDiurnas = request.POST['horasDiurnas']
-        horasNocturnas = request.POST['horasNocturnas']
-        horasTotales = request.POST['horasTotales']
-        horasOrdinarias = request.POST['horasOrdinarias']
+        #horasDiurnas = request.POST['horasDiurnas']
+        #horasNocturnas = request.POST['horasNocturnas']
+        #horasTotales = request.POST['horasTotales']
+        #horasOrdinarias = request.POST['horasOrdinarias']
         extrasDiurnas = request.POST['extrasDiurnas']
         extrasNocturnas = request.POST['extrasNocturnas']
         recargosNocturnos = request.POST['recargosNocturnos']
@@ -42,19 +43,20 @@ def form(request):
         extrasDF = request.POST.get('extrasDF')
         extrasNF = request.POST.get('extrasNF')
         rNF = request.POST.get('RNF')
+        form = nomina(empleado,fechaInicio,fechaFin, extrasDiurnas,extrasNocturnas,recargosNocturnos,festivos,extrasDF,extrasNF,rNF)
+        form.save()
     fechaInicio = datetime.strptime(fechaInicio,"%Y-%m-%d")
     fechaFin = datetime.strptime(fechaFin, "%Y-%m-%d")
     dias = ((fechaFin-fechaInicio) / timedelta(days=1))+1 
-    nomina = 0
-    nomina = (dias*valorDia)+(float(extrasDiurnas)*valorED)+(float(extrasNocturnas)*valorEN)+(float(festivos)*valorRDF)+(float(extrasDF)*valorExtrasDF)+(float(extrasNF)*valorExtrasNF)+(float(recargosNocturnos)*valorRN)+(float(rNF)*valorRNF)+(dias*auxTransporte)
+    nominaC = 0
+    nominaC = (dias*valorDia)+(float(extrasDiurnas)*valorED)+(float(extrasNocturnas)*valorEN)+(float(festivos)*valorRDF)+(float(extrasDF)*valorExtrasDF)+(float(extrasNF)*valorExtrasNF)+(float(recargosNocturnos)*valorRN)+(float(rNF)*valorRNF)+(dias*auxTransporte)
     descuentos = 0
-    descuentos = (nomina*0.04)*2
+    descuentos = (nominaC*0.04)*2
     totalNomina = 0
-    totalNomina = nomina - descuentos
-    (float(horasOrdinarias)*valorOrdinaria)
+    totalNomina = nominaC - descuentos
     print(fechaInicio)
     print(fechaFin)
-    return render(request, 'index.html',{'empleado':empleado, 'fechaInicio': fechaInicio, 'fechaFin': fechaFin,'total':nomina,'descuento': totalNomina})
+    return render(request, 'index.html',{'empleado':empleado, 'fechaInicio': fechaInicio, 'fechaFin': fechaFin,'total':nominaC,'descuento': totalNomina})
 
 def calcular(request):
     return render(request, "calculo.html")
