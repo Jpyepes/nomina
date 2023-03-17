@@ -3,8 +3,8 @@ from datetime import datetime, timedelta
 # Create your views here.
 def form(request):
     empleado = ''
-    fechaInicio = ''
-    fechaFin = ''
+    fechaInicio = '2023-03-17'
+    fechaFin = '2023-03-17'
     horasDiurnas = 0
     horasNocturnas = 0
     horasTotales = 0
@@ -42,8 +42,8 @@ def form(request):
         extrasDF = request.POST.get('extrasDF')
         extrasNF = request.POST.get('extrasNF')
         rNF = request.POST.get('RNF')
-    fechaInicio = datetime.strptime(fechaInicio,'%Y-%m-%d')
-    fechaFin = datetime.strptime(fechaFin, '%Y-%m-%d')
+    fechaInicio = datetime.strptime(fechaInicio,"%Y-%m-%d")
+    fechaFin = datetime.strptime(fechaFin, "%Y-%m-%d")
     dias = ((fechaFin-fechaInicio) / timedelta(days=1))+1 
     nomina = 0
     nomina = (dias*valorDia)+(float(extrasDiurnas)*valorED)+(float(extrasNocturnas)*valorEN)+(float(festivos)*valorRDF)+(float(extrasDF)*valorExtrasDF)+(float(extrasNF)*valorExtrasNF)+(float(recargosNocturnos)*valorRN)+(float(rNF)*valorRNF)+(dias*auxTransporte)
@@ -51,8 +51,9 @@ def form(request):
     descuentos = (nomina*0.04)*2
     totalNomina = 0
     totalNomina = nomina - descuentos
-    #(float(horasOrdinarias)*valorOrdinaria)
-    print(nomina)
+    (float(horasOrdinarias)*valorOrdinaria)
+    print(fechaInicio)
+    print(fechaFin)
     return render(request, 'index.html',{'empleado':empleado, 'fechaInicio': fechaInicio, 'fechaFin': fechaFin,'total':nomina,'descuento': totalNomina})
 
 def calcular(request):
