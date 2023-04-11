@@ -11,26 +11,31 @@
 <body>
     <form method="POST" class="divFlex">
         {% csrf_token %}
-        <input type="text" placeholder="Empleado" name="empleado" class="inputCalculo">
+        <select name="empleado" class="inputCalculo">
+            <option value="Nahomy Ninibeth">Nahomy Ninibeth</option>
+            <option value="Manuela Ospina">Manuela Ospina</option>
+            <option value="Luisa Ospina">Luisa Ospina</option>
+            <option value="Alan Vargas">Alan Vargas</option>
+            <option value="Carlos Alberto Gomez">Carlos Alberto Gomez</option>
+            <option value="Yuliana Arguello">Yuliana Arguello</option>
+            <option value="Miguel Angel Lopez">Miguel Angel Lopez</option>
+        </select>
         <label for="fechaInicio" class="labelInput">Fecha inicio</label>
         <input type="date" placeholder="Fecha inicio" name="fechaInicio" class="inputCalculo">
         <label for="fechaFin" class="labelInput">Fecha fin</label>
         <input type="date" placeholder="Fecha fin" name="fechaFin" class="inputCalculo">
-        <!--<input type="number" step="0.1" placeholder="Horas Diurnas" name="horasDiurnas" class="inputCalculo">
-        <input type="number" step="0.1" placeholder="Horas Nocturnas" name="horasNocturnas" class="inputCalculo">
-        <input type="number" step="0.1" placeholder="Horas Totales" name="horasTotales" class="inputCalculo">
-        <input type="number" step="0.1" placeholder="Horas Ordinarias" name="horasOrdinarias" class="inputCalculo">-->
-        <input type="number" step="0.1" placeholder="Extras Diurnas" name="extrasDiurnas" class="inputCalculo">
-        <input type="number" step="0.1" placeholder="Extras Nocturnas" name="extrasNocturnas" class="inputCalculo">
-        <input type="number" step="0.1" placeholder="Recargos Nocturnos" name="recargosNocturnos" class="inputCalculo">
-        <input type="number" step="0.1" placeholder="Domingos y/o festivos" name="festivos" class="inputCalculo">
-        <input type="number" step="0.1" placeholder="Extras Diurnas Festivas" name="extrasDF" class="inputCalculo">
-        <input type="number" step="0.1" placeholder="Extras Nocturnas Festivas" name="extrasNF" class="inputCalculo">
-        <input type="number" step="0.1" placeholder="Recargos Nocturnos Festivos" name="RNF" class="inputCalculo">
+        <input type="number" step="0.01" placeholder="Extras Diurnas" name="extrasDiurnas" class="inputCalculo">
+        <input type="number" step="0.01" placeholder="Extras Nocturnas" name="extrasNocturnas" class="inputCalculo">
+        <input type="number" step="0.01" placeholder="Recargos Nocturnos" name="recargosNocturnos" class="inputCalculo">
+        <input type="number" step="0.01" placeholder="Domingos y/o festivos" name="festivos" class="inputCalculo">
+        <input type="number" step="0.01" placeholder="Extras Diurnas Festivas" name="extrasDF" class="inputCalculo">
+        <input type="number" step="0.01" placeholder="Extras Nocturnas Festivas" name="extrasNF" class="inputCalculo">
+        <input type="number" step="0.01" placeholder="Recargos Nocturnos Festivos" name="RNF" class="inputCalculo">
         <button type="submit" class="btn third">Calcular Nómina</button>
     </form>
     <p>Empleado: {{empleado}}</p>
     <p>Devengos: {{total}}</p>
     <p>Nomina (con descuentos): {{descuento}}</p>
+    <p>{{msgError}}</p>
 </body>
 </html>

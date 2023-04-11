@@ -18,6 +18,5 @@ from django.urls import path
 from core import views as coreViews
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', coreViews.form, name='calcular'),
-    path('calculo/', coreViews.calcular, name='calculo'),
+    path('', coreViews.form, name='form'),
 ]
