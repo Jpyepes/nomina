@@ -23,11 +23,13 @@ def form(request):
     valorRNF = 5317
     auxTransporte = 4687
     valorDia= 0
+    diasLaborados = 0
     msgError = 'Intentalo de nuevo'
     if request.method == 'POST':
         empleado = request.POST['empleado']
         fechaInicio = request.POST['fechaInicio']
         fechaFin = request.POST['fechaFin']
+        diasLaborados = int(request.POST.get('diasLaborados'))
         extrasDiurnas = request.POST['extrasDiurnas']
         extrasNocturnas = request.POST['extrasNocturnas']
         recargosNocturnos = request.POST['recargosNocturnos']
@@ -42,21 +44,36 @@ def form(request):
         print(salarioNombre(empleado))
     except:
         print('No hay ningún empleado')
-    fechaInicio = datetime.strptime(fechaInicio,"%Y-%m-%d")
-    fechaFin = datetime.strptime(fechaFin, "%Y-%m-%d")
-    dias = ((fechaFin-fechaInicio) / timedelta(days=1))+1 
+    #fechaInicio = datetime.strptime(fechaInicio,"%Y-%m-%d")
+    #fechaFin = datetime.strptime(fechaFin, "%Y-%m-%d")
+    #dias = ((fechaFin-fechaInicio) / timedelta(days=1))+1 
     nominaC = 0
-    nominaC = (dias*valorDia)+(float(extrasDiurnas)*valorED)+(float(extrasNocturnas)*valorEN)+(float(festivos)*valorRDF)+(float(extrasDF)*valorExtrasDF)+(float(extrasNF)*valorExtrasNF)+(float(recargosNocturnos)*valorRN)+(float(rNF)*valorRNF)+((dias)*auxTransporte)
-    nominaSA = nominaC-((dias)*auxTransporte)
+    nominaC = (diasLaborados*valorDia)+(float(extrasDiurnas)*valorED)+(float(extrasNocturnas)*valorEN)+(float(festivos)*valorRDF)+(float(extrasDF)*valorExtrasDF)+(float(extrasNF)*valorExtrasNF)+(float(recargosNocturnos)*valorRN)+(float(rNF)*valorRNF)+((diasLaborados)*auxTransporte)
+    nominaSA = nominaC-((diasLaborados)*auxTransporte)
     descuentos = 0
     descuentos = (nominaSA*0.04)*2
     totalNomina = 0
     totalNomina = nominaC - descuentos
-    print(fechaInicio)
-    print(fechaFin)
     form = Nomina(empleado = pkNombre(empleado),fechaInicio = fechaInicio,fechaFin = fechaFin,extrasDiurnas = extrasDiurnas,extrasNocturnas = extrasNocturnas,recargosNocturnos = recargosNocturnos,horasFestivas = festivos,extrasDF = extrasDF,extrasNF = extrasNF,rNF = rNF,devengado = nominaC, total = totalNomina)
     form.save()
     return render(request, 'index.html',{'empleado':empleado, 'fechaInicio': fechaInicio, 'fechaFin': fechaFin,'total':nominaC,'descuento': totalNomina})
+
+def landing(request):
+    return render(request, 'landing.html')
+
+def crearEmpleado(request):
+    nombre = ''
+    if request.method == 'POST':
+        nombre = request.POST.get('nombreEmpleadoC')
+        cedula = request.POST.get('cedulaEmpleadoC')
+        fechaInicio = request.POST.get('fechaInicioEmpleadoC')
+        salarioBase = request.POST.get('salarioBaseEmpleadoC')
+        f = Empleado(cedula = cedula, nombre = nombre, salarioBase = salarioBase, fechaInicio = fechaInicio)
+        f.save()
+    msgExito = f'¡El empleado {nombre} ha sido creado exitosamente!'
+    return render(request, 'crearEmpleado.html',{'msgExito':msgExito, 'nombre':nombre})
+
+
 
 def pkNombre(nombreE):
     empleado = Empleado.objects.get(nombre=nombreE)

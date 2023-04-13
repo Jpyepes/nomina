@@ -18,5 +18,7 @@ from django.urls import path
 from core import views as coreViews
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', coreViews.form, name='form'),
+    path('', coreViews.landing, name='landing'),
+    path('calcularNomina/', coreViews.form, name='form'),
+    path('crearEmpleado/', coreViews.crearEmpleado, name='crearEmpleado'),
 ]
