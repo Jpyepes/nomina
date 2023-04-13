@@ -11,8 +11,10 @@
 <body>
     <section class="containerLanding">
         <a class="btn third" href="{% url 'crearEmpleado' %}">Crear Empleado</a>
-        <a class="btn third" href="#">Actualizar empleado</a>
+        <a class="btn third" href="{% url 'actualizarEmpleado' %}">Actualizar empleado</a>
         <a class="btn third" href="{% url 'form' %}">Calcular Nómina</a>
+        <a class="btn third" href="{% url 'historialNomina' %}">Historial Nómina</a>
+        <a class="btn third" id="volverNomina" href="#">Agregar Productos</a>
     </section>
 </body>
 </html>

@@ -21,4 +21,6 @@ urlpatterns = [
     path('', coreViews.landing, name='landing'),
     path('calcularNomina/', coreViews.form, name='form'),
     path('crearEmpleado/', coreViews.crearEmpleado, name='crearEmpleado'),
+    path('actualizarEmpleado/', coreViews.actualizarEmpleado, name='actualizarEmpleado'),
+    path('historialNomina/', coreViews.historialNomina, name='historialNomina'),
 ]

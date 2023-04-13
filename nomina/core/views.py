@@ -3,6 +3,9 @@ from datetime import datetime, timedelta
 from .models import Nomina
 from .models import Empleado
 # Create your views here.
+def landing(request):
+    return render(request, 'landing.html')
+
 def form(request):
     empleado = ''
     fechaInicio = '2023-03-17'
@@ -58,8 +61,6 @@ def form(request):
     form.save()
     return render(request, 'index.html',{'empleado':empleado, 'fechaInicio': fechaInicio, 'fechaFin': fechaFin,'total':nominaC,'descuento': totalNomina})
 
-def landing(request):
-    return render(request, 'landing.html')
 
 def crearEmpleado(request):
     nombre = ''
@@ -73,8 +74,24 @@ def crearEmpleado(request):
     msgExito = f'¡El empleado {nombre} ha sido creado exitosamente!'
     return render(request, 'crearEmpleado.html',{'msgExito':msgExito, 'nombre':nombre})
 
+def actualizarEmpleado(request):
+    if request.method == 'POST':
+        nombre = request.POST.get('empleadoA')
+        salarioBase = request.POST.get('salarioBaseEmpleadoA')
+        fechaFin = request.POST.get('fechaFinA')
+        empleado = pkNombre(nombre)
+        if salarioBase != '':
+            empleado.salarioBase = salarioBase
+        if fechaFin != '':
+            empleado.fechaFin = fechaFin
+        empleado.save()
 
+    return render(request, 'actualizarEmpleado.html')
 
+def historialNomina(request):
+    return render(request, 'historial.html')
+
+#-------------------------------------------------------------------------------------------------------------------------------------
 def pkNombre(nombreE):
     empleado = Empleado.objects.get(nombre=nombreE)
     return empleado
