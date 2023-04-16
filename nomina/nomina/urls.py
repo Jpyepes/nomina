@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from core import views as coreViews
+from produccion import views as produccionViews
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', coreViews.landing, name='landing'),
@@ -23,4 +24,5 @@ urlpatterns = [
     path('crearEmpleado/', coreViews.crearEmpleado, name='crearEmpleado'),
     path('actualizarEmpleado/', coreViews.actualizarEmpleado, name='actualizarEmpleado'),
     path('historialNomina/', coreViews.historialNomina, name='historialNomina'),
+    path('crearProducto/', produccionViews.crearProducto, name='crearProducto'),
 ]

@@ -27,12 +27,14 @@ def form(request):
     auxTransporte = 4687
     valorDia= 0
     diasLaborados = 0
+    diasAuxilioT = 0
     msgError = 'Intentalo de nuevo'
     if request.method == 'POST':
         empleado = request.POST['empleado']
         fechaInicio = request.POST['fechaInicio']
         fechaFin = request.POST['fechaFin']
         diasLaborados = int(request.POST.get('diasLaborados'))
+        diasAuxilioT = int(request.POST.get('diasAuxilioT'))
         extrasDiurnas = request.POST['extrasDiurnas']
         extrasNocturnas = request.POST['extrasNocturnas']
         recargosNocturnos = request.POST['recargosNocturnos']
@@ -51,8 +53,8 @@ def form(request):
     #fechaFin = datetime.strptime(fechaFin, "%Y-%m-%d")
     #dias = ((fechaFin-fechaInicio) / timedelta(days=1))+1 
     nominaC = 0
-    nominaC = (diasLaborados*valorDia)+(float(extrasDiurnas)*valorED)+(float(extrasNocturnas)*valorEN)+(float(festivos)*valorRDF)+(float(extrasDF)*valorExtrasDF)+(float(extrasNF)*valorExtrasNF)+(float(recargosNocturnos)*valorRN)+(float(rNF)*valorRNF)+((diasLaborados)*auxTransporte)
-    nominaSA = nominaC-((diasLaborados)*auxTransporte)
+    nominaC = (diasLaborados*valorDia)+(float(extrasDiurnas)*valorED)+(float(extrasNocturnas)*valorEN)+(float(festivos)*valorRDF)+(float(extrasDF)*valorExtrasDF)+(float(extrasNF)*valorExtrasNF)+(float(recargosNocturnos)*valorRN)+(float(rNF)*valorRNF)+((diasAuxilioT)*auxTransporte)
+    nominaSA = nominaC-((diasAuxilioT)*auxTransporte)
     descuentos = 0
     descuentos = (nominaSA*0.04)*2
     totalNomina = 0
@@ -89,7 +91,18 @@ def actualizarEmpleado(request):
     return render(request, 'actualizarEmpleado.html')
 
 def historialNomina(request):
-    return render(request, 'historial.html')
+    nombre = ''
+    cedula = 0
+    if request.method == 'POST':
+        nombre = request.POST.get('empleadoH')
+        nomina = Nomina.objects.filter(empleado = pkNombre(nombre))
+        cedula = cedulaEmpleado(nombre)
+        print('Objeto nomina: ')
+        for calculo in nomina:
+            print(calculo.id)
+            print(calculo.empleado_id)
+
+    return render(request, 'historial.html', {'nombre': nombre, 'cedula': cedula})
 
 #-------------------------------------------------------------------------------------------------------------------------------------
 def pkNombre(nombreE):
@@ -100,3 +113,8 @@ def salarioNombre(nombreE):
     empleado = Empleado.objects.get(nombre=nombreE)
     salarioEmpleado = empleado.salarioBase
     return salarioEmpleado
+
+def cedulaEmpleado(nombreE):
+    empleado = Empleado.objects.get(nombre=nombreE)
+    cedula = empleado.cedula
+    return cedula
