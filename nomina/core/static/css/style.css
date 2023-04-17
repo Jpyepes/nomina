@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Crete+Round&display=swap');
+*{font-family: 'Crete Round', serif;}
 .inputCalculo{
     border-radius: 10px;
     border: 2px solid #3498db;
@@ -52,7 +54,21 @@
   padding: 8px;
 }
 
-
+.historialCalculo{
+  border-bottom: 1px solid #000000;
+}
+.containerFlexRow{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+.campoCalculo{
+  font-size: 20px;
+}
+.centrarTexto{
+  text-align: center;
+}
 
 /*----------------------------------------Boton----------------------------------------*/
 .btn {

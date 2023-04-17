@@ -17,15 +17,8 @@ def form(request):
     festivos = 0
     extrasDF = 0
     extrasNF = 0
-    valorED = 6042
-    valorEN = 8458
-    valorRDF = 3625
-    valorExtrasDF = 9665
-    valorExtrasNF = 12081
-    valorRN = 1692
-    valorRNF = 5317
-    auxTransporte = 4687
     valorDia= 0
+    valorHoraOrdinaria = 0
     diasLaborados = 0
     diasAuxilioT = 0
     msgError = 'Intentalo de nuevo'
@@ -33,7 +26,7 @@ def form(request):
         empleado = request.POST['empleado']
         fechaInicio = request.POST['fechaInicio']
         fechaFin = request.POST['fechaFin']
-        diasLaborados = int(request.POST.get('diasLaborados'))
+        diasLaborados = float(request.POST.get('diasLaborados'))
         diasAuxilioT = int(request.POST.get('diasAuxilioT'))
         extrasDiurnas = request.POST['extrasDiurnas']
         extrasNocturnas = request.POST['extrasNocturnas']
@@ -46,12 +39,21 @@ def form(request):
         return render(request, 'index.html',{'msgError':msgError})
     try:
         valorDia = int((int(salarioNombre(empleado))/240)*8)
+        valorHoraOrdinaria = int(salarioNombre(empleado))/240
         print(salarioNombre(empleado))
     except:
         print('No hay ningún empleado')
     #fechaInicio = datetime.strptime(fechaInicio,"%Y-%m-%d")
     #fechaFin = datetime.strptime(fechaFin, "%Y-%m-%d")
     #dias = ((fechaFin-fechaInicio) / timedelta(days=1))+1 
+    valorED = valorHoraOrdinaria*1.25
+    valorEN = valorHoraOrdinaria*1.75
+    valorRDF = valorHoraOrdinaria*0.75
+    valorExtrasDF = valorHoraOrdinaria*2
+    valorExtrasNF = valorHoraOrdinaria*2.5
+    valorRN = valorHoraOrdinaria*0.35
+    valorRNF = 5317
+    auxTransporte = 4687
     nominaC = 0
     nominaC = (diasLaborados*valorDia)+(float(extrasDiurnas)*valorED)+(float(extrasNocturnas)*valorEN)+(float(festivos)*valorRDF)+(float(extrasDF)*valorExtrasDF)+(float(extrasNF)*valorExtrasNF)+(float(recargosNocturnos)*valorRN)+(float(rNF)*valorRNF)+((diasAuxilioT)*auxTransporte)
     nominaSA = nominaC-((diasAuxilioT)*auxTransporte)
@@ -93,16 +95,13 @@ def actualizarEmpleado(request):
 def historialNomina(request):
     nombre = ''
     cedula = 0
+    nomina = ''
     if request.method == 'POST':
         nombre = request.POST.get('empleadoH')
         nomina = Nomina.objects.filter(empleado = pkNombre(nombre))
         cedula = cedulaEmpleado(nombre)
-        print('Objeto nomina: ')
-        for calculo in nomina:
-            print(calculo.id)
-            print(calculo.empleado_id)
 
-    return render(request, 'historial.html', {'nombre': nombre, 'cedula': cedula})
+    return render(request, 'historial.html', {'nombre': nombre, 'cedula': cedula, 'objetoNomina': nomina})
 
 #-------------------------------------------------------------------------------------------------------------------------------------
 def pkNombre(nombreE):
