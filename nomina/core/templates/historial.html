@@ -27,7 +27,7 @@
         <button type="submit" class="btn third">Buscar Historial</button>
         <a class="btn third" id="volverNomina" href="{% url 'landing' %}">Volver</a>
         {% if nombre %}
-            <p class="msgExito">{{nombre}} {{cedula}}</p>
+            <p class="empleadoCalculo">Empleado: {{nombre}} con Cédula: {{cedula}}</p>
         {%endif%}
     </form>
     {% for calculo in objetoNomina %}

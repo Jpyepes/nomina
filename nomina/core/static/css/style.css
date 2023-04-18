@@ -69,7 +69,15 @@
 .centrarTexto{
   text-align: center;
 }
-
+.empleadoCalculo{
+  display: block;
+  color: white;
+  background-color: rgba(51, 152, 219,.9);
+  border-radius: 20px;
+  font-size: 20px;
+  padding: 10px;
+  margin-top: 5%;
+}
 /*----------------------------------------Boton----------------------------------------*/
 .btn {
     box-sizing: border-box;
