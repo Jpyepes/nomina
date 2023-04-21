@@ -27,8 +27,25 @@
         <button type="submit" class="btn third">Buscar Historial</button>
         <a class="btn third" id="volverNomina" href="{% url 'landing' %}">Volver</a>
         {% if nombre %}
-            <p class="msgExito">{{nombre}} {{cedula}}</p>
+            <p class="empleadoCalculo">Empleado: {{nombre}} con Cédula: {{cedula}}</p>
         {%endif%}
     </form>
+    {% for calculo in objetoNomina %}
+    <div class="historialCalculo">
+        <h2 class="idCalculo centrarTexto" >ID Nomina: {{calculo.id}}</h2>
+        <div class="containerFlexRow">
+            <p class="campoCalculo centrarTexto">{{calculo.fechaInicio}} - {{calculo.fechaFin}}</p>
+            <p class="campoCalculo centrarTexto"><strong>Extras Diurnas:</strong> {{calculo.extrasDiurnas}}</p>
+            <p class="campoCalculo centrarTexto"><strong>Extras Nocturnas:</strong> {{calculo.extrasNocturnas}}</p>
+            <p class="campoCalculo centrarTexto"><strong>Recargos Nocturnos:</strong> {{calculo.recargosNocturnos}}</p>
+            <p class="campoCalculo centrarTexto"><strong>Recargos Diurnos Festivos:</strong> {{calculo.horasFestivas}}</p>
+            <p class="campoCalculo centrarTexto"><strong>Extras Diurnas Festivas:</strong> {{calculo.extrasDF}}</p>
+            <p class="campoCalculo centrarTexto"><strong>Extras Nocturnas Festivas:</strong> {{calculo.extrasNF}}</p>
+            <p class="campoCalculo centrarTexto"><strong>Recargos Nocturnos Festivos:</strong> {{calculo.rNF}}</p>
+            <p class="campoCalculo centrarTexto"><strong>Devengado:</strong> {{calculo.devengado}}</p>
+            <p class="campoCalculo centrarTexto"><strong>Total:</strong> {{calculo.total}}</p>
+        </div>
+    </div>
+    {% endfor %}
 </body>
 </html>
