@@ -17,15 +17,15 @@
         </div>
         <div class="divFlexRow">
             <label for="stockUnidades" class="labelInput">Stock de Unidades:</label>
-            <input type="number" step="1" placeholder="Unidades" name="stockUnidades" class="inputCalculo" required>
+            <input type="number" step="1" placeholder="Unidades" name="stockUnidades" class="inputCalculo" >
         </div>
         <div class="divFlexRow">
             <label for="stockGramos" class="labelInput">Stock en Gramos:</label>
-            <input type="number" step="0.1" placeholder="Gramos (opcional)" name="stockGramos" class="inputCalculo" required>
+            <input type="number" step="0.1" placeholder="Gramos (opcional)" name="stockGramos" class="inputCalculo" >
         </div>
         <div class="divFlexRow">
             <label for="precio" class="labelInput">Precio:</label>
-            <input type="number" step="0.1" placeholder="Precio (opcional)" name="precio" class="inputCalculo" required>
+            <input type="number" step="1" placeholder="Precio (opcional)" name="precio" class="inputCalculo" >
         </div>
         <button type="submit" class="btn third">Crear Producto</button>
         <a class="btn third" id="volverNomina" href="{% url 'landing' %}">Volver</a>
