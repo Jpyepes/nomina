@@ -7,13 +7,9 @@ class Producto(models.Model):
     stockGramos = models.FloatField(default=0)
     precio = models.PositiveIntegerField(default=0)
 
-class ProductoOrden(models.Model):
-    cantidadSolicitada = models.PositiveIntegerField()
-    productos = models.ManyToManyField(Producto)
 
 class OrdenProduccion(models.Model):
     id = models.CharField(max_length=6, primary_key=True)
-    productoOrden = models.ManyToManyField(ProductoOrden)
     
     def save(self, *args, **kwargs):
         if not self.id:
@@ -24,3 +20,9 @@ class OrdenProduccion(models.Model):
                 numero_id = 1
             self.id = str(numero_id).zfill(6)
         super().save(*args, **kwargs)
+
+class ProductoOrden(models.Model):
+    cantidadSolicitada = models.PositiveIntegerField()
+    precio = models.PositiveIntegerField()
+    productos = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    ordenProduccion = models.ForeignKey(OrdenProduccion, on_delete=models.CASCADE)
