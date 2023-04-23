@@ -25,4 +25,5 @@ urlpatterns = [
     path('actualizarEmpleado/', coreViews.actualizarEmpleado, name='actualizarEmpleado'),
     path('historialNomina/', coreViews.historialNomina, name='historialNomina'),
     path('crearProducto/', produccionViews.crearProducto, name='crearProducto'),
+    path('crearOrden/', produccionViews.crearOrden, name='crearOrden'),
 ]

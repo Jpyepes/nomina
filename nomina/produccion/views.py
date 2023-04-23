@@ -15,3 +15,9 @@ def crearProducto (request):
         producto = Producto(nombre=listaProducto[0],stockUnidades=int(listaProducto[1]),stockGramos=float(listaProducto[2]),precio=float(listaProducto[3]))
         producto.save()
     return render(request, 'crearProducto.html')
+
+def crearOrden(request):
+    if request.method == 'POST':
+        datos = request.POST
+        print(datos)
+    return render(request, 'crearOrden.html')

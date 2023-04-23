@@ -9,7 +9,7 @@ class Producto(models.Model):
 
 
 class OrdenProduccion(models.Model):
-    id = models.CharField(max_length=6, primary_key=True)
+    id = models.CharField(max_length=5, primary_key=True)
     
     def save(self, *args, **kwargs):
         if not self.id:
@@ -18,11 +18,11 @@ class OrdenProduccion(models.Model):
                 numero_id = int(ultimo_id.id) + 1
             else:
                 numero_id = 1
-            self.id = str(numero_id).zfill(6)
+            self.id = str(numero_id).zfill(5)
         super().save(*args, **kwargs)
 
 class ProductoOrden(models.Model):
     cantidadSolicitada = models.PositiveIntegerField()
-    precio = models.PositiveIntegerField()
+    precio = models.PositiveIntegerField(default=0)
     productos = models.ForeignKey(Producto, on_delete=models.CASCADE)
     ordenProduccion = models.ForeignKey(OrdenProduccion, on_delete=models.CASCADE)

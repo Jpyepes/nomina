@@ -78,6 +78,30 @@
   padding: 10px;
   margin-top: 5%;
 }
+#inputGrande{
+  width: 50%;
+}
+.pedidoOrden{
+  padding: 20px;
+  border-bottom:1px solid #3498db;
+}
+#inputOrden{
+  width: 100%;
+}
+#borrarProductoOrden{
+  height: 25px;
+}
+#contenedorContenedorInputs{
+  width: 100%;
+  align-items: center;
+  height: 200px;
+}
+#sectionPedidoOrden{
+  height: 200px;
+}
+#formOrden{
+  margin: 10px auto;
+}
 /*----------------------------------------Boton----------------------------------------*/
 .btn {
     box-sizing: border-box;
