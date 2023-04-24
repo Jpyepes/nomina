@@ -18,6 +18,9 @@ def crearProducto (request):
 
 def crearOrden(request):
     if request.method == 'POST':
-        datos = request.POST
-        print(datos)
+        data = request.POST.get('datosProducto')
+        listaProductos = [data]
+        print(type(data))
+        print(data[0])
+        print(listaProductos)
     return render(request, 'crearOrden.html')

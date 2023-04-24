@@ -88,16 +88,13 @@
 #inputOrden{
   width: 100%;
 }
-#borrarProductoOrden{
+.borrarProductoOrden{
   height: 25px;
-}
-#contenedorContenedorInputs{
-  width: 100%;
-  align-items: center;
-  height: 200px;
-}
-#sectionPedidoOrden{
-  height: 200px;
+  background-color: red;
+  border: 1px solid white;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
 }
 #formOrden{
   margin: 10px auto;
