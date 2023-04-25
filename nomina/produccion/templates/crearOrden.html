@@ -43,7 +43,13 @@
         </section>
         </div>
         <div id="infoListProductos"></div>
-        <input type="text" id="mandarPython" name="datosProducto">
+        <input type="text" id="mandarPython" name="datosProducto" hidden>
+        <div id="contenedorFechaE">
+            <div class="divFlexRow" id="inputOrden">
+                <label for="fechaEntrega" class="labelInput">Fecha de Entrega:</label>
+                <input type="date" name="fechaEntrega" class="inputCalculo" id="inputFechaE" required>
+            </div>
+        </div>
         <button type="button" class="btn third" onclick="agregarElemento()">Agregar Producto</button>
         <button type="submit" class="btn third">Crear Orden</button>
         <a class="btn third" id="volverNomina" href="{% url 'landing' %}">Volver</a>

@@ -1,0 +1,20 @@
+.tablaVerOrdenes{
+    width: 90%;
+    margin-bottom: 8%;
+}
+th{
+    background-color: #90ee90;
+}
+td,th{
+    border: 1px solid #32cd32;
+}
+.containerTablas{
+    width: 100%;
+    align-items: center;
+}
+.fechas{
+    margin: 0px;
+}
+.centrarTextos{
+    text-align: center;
+}
