@@ -13,43 +13,46 @@
         {% csrf_token %}
         <div id="contenedorCrearOrden">
         <section class="pedidoOrden divFlex" id="sectionPedidoOrden">
-            <div class="divFlexRow" id="contenedorContenedorInputs">
-            <div class="contenedorInputsOrden divFlex">
             <div class="divFlexRow" id="inputOrden">
-                <label for="productoOrden" class="labelInput">Producto:</label>
-                <select name="productoOrden" class="inputCalculo" id="inputGrande">
-                    <option value="Pollo Menu">Pollo Menu</option>
-                    <option value="Cerdo Menu">Cerdo Menu</option>
-                    <option value="Costilla Menu">Costilla Menu</option>
-                    <option value="Chicharron">Chicharron</option>
-                    <option value="Pulled Pork">Pulled Pork</option>
-                    <option value="Panceta Ahumada">Panceta Ahumada</option>
-                    <option value="1/2 Rack">1/2 Rack</option>
-                    <option value="Picada Mediana Pollo">Picada Mediana Pollo</option>
-                    <option value="Picada Mediana Cerdo">Picada Mediana Cerdo</option>
-                    <option value="Picada Mediana Res">Picada Mediana Res</option>
-                    <option value="Picada Grande Pollo">Picada Grande Pollo</option>
-                    <option value="Picada Grande Cerdo">Picada Grande Cerdo</option>
-                    <option value="Picada Grande Res">Picada Grande Res</option>
-                    <option value="Picada Familiar Pollo">Picada Familiar Pollo</option>
-                    <option value="Picada Familiar Cerdo">Picada Familiar Cerdo</option>
-                    <option value="Picada Familiar Res">Picada Familiar Res</option>
-                    <option value="Carne Hamburguesa">Carne Hamburguesa</option>
-                    <option value="Eva">Eva</option>
-                </select>
+            <label for="productoOrden" class="labelInput">Producto:</label>
+            <select name="productoOrden" class="inputCalculo" id="inputGrande">
+                <option value="Pollo Menu">Pollo Menu</option>
+                <option value="Cerdo Menu">Cerdo Menu</option>
+                <option value="Costilla Menu">Costilla Menu</option>
+                <option value="Chicharron">Chicharron</option>
+                <option value="Pulled Pork">Pulled Pork</option>
+                <option value="Panceta Ahumada">Panceta Ahumada</option>
+                <option value="1/2 Rack">1/2 Rack</option>
+                <option value="Picada Mediana Pollo">Picada Mediana Pollo</option>
+                <option value="Picada Mediana Cerdo">Picada Mediana Cerdo</option>
+                <option value="Picada Mediana Res">Picada Mediana Res</option>
+                <option value="Picada Grande Pollo">Picada Grande Pollo</option>
+                <option value="Picada Grande Cerdo">Picada Grande Cerdo</option>
+                <option value="Picada Grande Res">Picada Grande Res</option>
+                <option value="Picada Familiar Pollo">Picada Familiar Pollo</option>
+                <option value="Picada Familiar Cerdo">Picada Familiar Cerdo</option>
+                <option value="Picada Familiar Res">Picada Familiar Res</option>
+                <option value="Carne Hamburguesa">Carne Hamburguesa</option>
+                <option value="Eva">Eva</option>
+            </select>
             </div>
             <div class="divFlexRow" id="inputOrden">
                 <label for="cantidadSolicitada" class="labelInput">Cantidad Solicitada:</label>
-                <input type="number" step="1" placeholder="Unidades" name="cantidadSolicitada" class="inputCalculo" >
-            </div>
-            </div>
-            <button type="button" class="borrarProductoOrden">X</button>
+                <input type="number" step="1" placeholder="Unidades" name="cantidadSolicitada" class="inputCalculo" id="inputCantidadSolicitada">
             </div>
         </section>
         </div>
-        <button type="button" class="btn third" onclick="agregarProducto()">Agregar Producto</button>
+        <div id="infoListProductos"></div>
+        <input type="text" id="mandarPython" name="datosProducto" hidden>
+        <div id="contenedorFechaE">
+            <div class="divFlexRow" id="inputOrden">
+                <label for="fechaEntrega" class="labelInput">Fecha de Entrega:</label>
+                <input type="date" name="fechaEntrega" class="inputCalculo" id="inputFechaE" required>
+            </div>
+        </div>
+        <button type="button" class="btn third" onclick="agregarElemento()">Agregar Producto</button>
         <button type="submit" class="btn third">Crear Orden</button>
-        <a class="btn third" id="volverNomina" href="{% url 'landing' %}">Volver</a>
+        <a class="btn third" id="btnVerde" href="{% url 'landing' %}">Volver</a>
     </form>
     <script src="{% static 'js/script.js' %}"></script>
 </body>

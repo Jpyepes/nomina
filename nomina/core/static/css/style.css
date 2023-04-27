@@ -37,11 +37,12 @@
   height: fit-content;
   margin: 5% auto;
 }
-#volverNomina{
+#btnVerde{
   border-color: #008f39;
   box-shadow: 0 0 40px 40px #008f39 inset, 0 0 0 0 #008f39;
+  justify-content: center;
 }
-#volverNomina:hover{
+#btnVerde:hover{
   color: black;
   box-shadow: 0 0 10px 0 #008f39 inset, 0 0 10px 4px #008f39;
 }
@@ -88,19 +89,27 @@
 #inputOrden{
   width: 100%;
 }
-#borrarProductoOrden{
+.borrarProductoOrden{
   height: 25px;
-}
-#contenedorContenedorInputs{
-  width: 100%;
-  align-items: center;
-  height: 200px;
-}
-#sectionPedidoOrden{
-  height: 200px;
+  background-color: red;
+  border: 1px solid white;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
 }
 #formOrden{
   margin: 10px auto;
+}
+#contenedorFechaE{
+  margin-top: 30px;
+  width: 30%;
+}
+#inputFechaE{
+  width: 50%;
+}
+.containerBtnOrdenes{
+  width: fit-content;
+  margin: 0px auto;
 }
 /*----------------------------------------Boton----------------------------------------*/
 .btn {

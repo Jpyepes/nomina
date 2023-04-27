@@ -26,4 +26,5 @@ urlpatterns = [
     path('historialNomina/', coreViews.historialNomina, name='historialNomina'),
     path('crearProducto/', produccionViews.crearProducto, name='crearProducto'),
     path('crearOrden/', produccionViews.crearOrden, name='crearOrden'),
+    path('verOrden/', produccionViews.verOrden, name='verOrden'),
 ]
