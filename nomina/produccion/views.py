@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Producto, ProductoOrden, OrdenProduccion
 from datetime import datetime
+from datetime import datetime
 # Create your views here.
 
 def crearProducto (request):
@@ -23,6 +24,29 @@ def crearProducto (request):
 
 def crearOrden(request):
     if request.method == 'POST':
+        fechaEntrega = request.POST.get('fechaEntrega')
+        data = request.POST.get('datosProducto')
+        dataTratada = data.split(",")
+        productos = []
+        cantidad = []
+        orden = OrdenProduccion(fechaCreacion=datetime.now(),fechaEntrega=fechaEntrega)
+        orden.save()
+        try:
+            for i in range(len(dataTratada)):
+                if i % 2 == 0:
+                    productos.append(dataTratada[i])
+                else:
+                    cantidad.append(dataTratada[i])    
+        except:
+            print('Ha ocurrido un error, vuelva a intentarlo más tarde')
+
+        for i in range(len(productos)):
+            relacionProducto = pkNombre(productos[i])
+            varAux = ProductoOrden(cantidadSolicitada=cantidad[i],precio=calcularPrecioPO(productos[i],cantidad[i]),producto=relacionProducto,ordenProduccion=orden)
+            varAux.save()
+            relacionProducto.lote = relacionProducto.lote + 1
+            relacionProducto.save()
+
         fechaEntrega = request.POST.get('fechaEntrega')
         data = request.POST.get('datosProducto')
         dataTratada = data.split(",")
