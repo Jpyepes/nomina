@@ -34,6 +34,7 @@
                 <option value="Picada Familiar Res">Picada Familiar Res</option>
                 <option value="Carne Hamburguesa">Carne Hamburguesa</option>
                 <option value="Eva">Eva</option>
+                <option value="Caiman">Caiman</option>
             </select>
             </div>
             <div class="divFlexRow" id="inputOrden">
@@ -47,7 +48,7 @@
         <div id="contenedorFechaE">
             <div class="divFlexRow" id="inputOrden">
                 <label for="fechaEntrega" class="labelInput">Fecha de Entrega:</label>
-                <input type="date" name="fechaEntrega" class="inputCalculo" id="inputFechaE" required>
+                <input type="date" min="{{fechaActual}}" name="fechaEntrega" class="inputCalculo" id="inputFechaE" required>
             </div>
         </div>
         <button type="button" class="btn third" onclick="agregarElemento()">Agregar Producto</button>

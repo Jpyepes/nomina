@@ -23,13 +23,14 @@ def crearProducto (request):
     return render(request, 'crearProducto.html')
 
 def crearOrden(request):
+    fechaActual = datetime.today().strftime('%Y-%m-%d')
     if request.method == 'POST':
         fechaEntrega = request.POST.get('fechaEntrega')
         data = request.POST.get('datosProducto')
         dataTratada = data.split(",")
         productos = []
         cantidad = []
-        orden = OrdenProduccion(fechaCreacion=datetime.now(),fechaEntrega=fechaEntrega)
+        orden = OrdenProduccion(fechaCreacion=datetime.now(),fechaEntrega=fechaEntrega,ordenCompletada='0')
         orden.save()
         try:
             for i in range(len(dataTratada)):
@@ -47,30 +48,7 @@ def crearOrden(request):
             relacionProducto.lote = relacionProducto.lote + 1
             relacionProducto.save()
 
-        fechaEntrega = request.POST.get('fechaEntrega')
-        data = request.POST.get('datosProducto')
-        dataTratada = data.split(",")
-        productos = []
-        cantidad = []
-        orden = OrdenProduccion(fechaCreacion=datetime.now(),fechaEntrega=fechaEntrega)
-        orden.save()
-        try:
-            for i in range(len(dataTratada)):
-                if i % 2 == 0:
-                    productos.append(dataTratada[i])
-                else:
-                    cantidad.append(dataTratada[i])    
-        except:
-            print('Ha ocurrido un error, vuelva a intentarlo más tarde')
-
-        for i in range(len(productos)):
-            relacionProducto = pkNombre(productos[i])
-            varAux = ProductoOrden(cantidadSolicitada=cantidad[i],precio=calcularPrecioPO(productos[i],cantidad[i]),producto=relacionProducto,ordenProduccion=orden)
-            varAux.save()
-            relacionProducto.lote = relacionProducto.lote + 1
-            relacionProducto.save()
-
-    return render(request, 'crearOrden.html')
+    return render(request, 'crearOrden.html',{'fechaActual': fechaActual})
 
 def verOrden(request):
     completarOrden(request)
@@ -103,6 +81,7 @@ def completarOrden(request):
         updateOrden = OrdenProduccion.objects.get(id=ordenCompletada)
         updateOrden.ordenCompletada = '1'
         updateOrden.save()
+
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 def pkNombre(nombreP):
     producto = Producto.objects.get(nombre=nombreP)

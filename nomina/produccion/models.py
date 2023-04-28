@@ -13,7 +13,7 @@ class OrdenProduccion(models.Model):
     id = models.AutoField(primary_key=True)
     fechaCreacion = models.DateField(default='2023-04-25')
     fechaEntrega = models.DateField(default='2023-04-25')
-    ordenCompletada = models.CharField(max_length=1)
+    ordenCompletada = models.CharField(max_length=1, default='0')
 
 class ProductoOrden(models.Model): 
     cantidadSolicitada = models.PositiveIntegerField()
