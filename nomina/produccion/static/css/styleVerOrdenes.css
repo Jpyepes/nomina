@@ -25,3 +25,9 @@ td,th{
     width: fit-content;
     margin-bottom: 8%;
 }
+#msgError{
+    color: red;
+}
+.adelantoProduccion{
+    width: 40px;
+}

@@ -2,10 +2,14 @@ from django.shortcuts import render
 from datetime import datetime, timedelta
 from .models import Nomina
 from .models import Empleado
+from django.contrib.auth.models import Group, Permission, User
+from django.contrib.auth.decorators import permission_required, login_required
 # Create your views here.
+@login_required
 def landing(request):
     return render(request, 'landing.html')
 
+@login_required
 def form(request):
     empleado = ''
     fechaInicio = '2023-03-17'
@@ -65,7 +69,7 @@ def form(request):
     form.save()
     return render(request, 'index.html',{'empleado':empleado, 'fechaInicio': fechaInicio, 'fechaFin': fechaFin,'total':nominaC,'descuento': totalNomina})
 
-
+@login_required
 def crearEmpleado(request):
     nombre = ''
     if request.method == 'POST':
@@ -78,6 +82,7 @@ def crearEmpleado(request):
     msgExito = f'¡El empleado {nombre} ha sido creado exitosamente!'
     return render(request, 'crearEmpleado.html',{'msgExito':msgExito, 'nombre':nombre})
 
+@login_required
 def actualizarEmpleado(request):
     if request.method == 'POST':
         nombre = request.POST.get('empleadoA')
@@ -92,6 +97,7 @@ def actualizarEmpleado(request):
 
     return render(request, 'actualizarEmpleado.html')
 
+@login_required
 def historialNomina(request):
     nombre = ''
     cedula = 0

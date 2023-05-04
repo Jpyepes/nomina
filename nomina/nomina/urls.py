@@ -17,9 +17,11 @@ from django.contrib import admin
 from django.urls import path
 from core import views as coreViews
 from produccion import views as produccionViews
+from login import views as loginViews
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', coreViews.landing, name='landing'),
+    path('', loginViews.login, name='login'),
+    path('landing/', coreViews.landing, name='landing'),
     path('calcularNomina/', coreViews.form, name='form'),
     path('crearEmpleado/', coreViews.crearEmpleado, name='crearEmpleado'),
     path('actualizarEmpleado/', coreViews.actualizarEmpleado, name='actualizarEmpleado'),
@@ -27,4 +29,5 @@ urlpatterns = [
     path('crearProducto/', produccionViews.crearProducto, name='crearProducto'),
     path('crearOrden/', produccionViews.crearOrden, name='crearOrden'),
     path('verOrden/', produccionViews.verOrden, name='verOrden'),
+    path('verPedido/', produccionViews.verPedido, name='verPedido'),
 ]

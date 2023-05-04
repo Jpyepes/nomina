@@ -14,7 +14,8 @@
         {% csrf_token %}
         <div class="containerBtnOrdenes">
             <a class="btn third" id="btnVerde" href="{% url 'landing' %}">Volver</a>
-            <button type="submit" class="btn third">Completar Orden</button>
+            <button type="submit" class="btn third" onclick="adelantoProduccion()">Guardar Cambios</button>
+            <input type="text" id="mandarPython" name="datosProduccion" hidden>
         </div>
         <div class="containerTablas divFlex">
             {% for id_orden, datos in datos_por_orden.items %}
@@ -26,7 +27,8 @@
                             <th>Id de orden</th>
                             <th>Nombre del producto</th>
                             <th>Cantidad</th>
-                            <th>Inventario</th>
+                            <th>Lote</th>
+                            <th>Cantidad Producida</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,22 +37,19 @@
                                 <td class="centrarTextos">{{ id_orden }}</td>
                                 <td class="centrarTextos">{{ producto.nombre }}</td>
                                 <td class="centrarTextos">{{ producto.cantidad }}</td>
-                                {% if producto.stock >= producto.cantidad %}
-                                <td class="centrarTextos">{{ producto.stock }} {{ producto.unidades }} - Ok</td>
-                                {% else %}
-                                <td class="centrarTextos">{{ producto.stock }} {{ producto.unidades }} - X</td>
-                                {%endif%}
-
+                                <td class="centrarTextos">{{ producto.lote }}</td>
+                                <td class="centrarTextos">Cantidad producida actual: <strong>{{producto.cantidadProducida}}</strong> - Ingresar producción: <input type="number" min="0" class="adelantoProduccion" id="{{producto.idProductoOrden}}" value="0"></td>
                             </tr>
                         {% endfor %}
                     </tbody>
                 </table>
                 <div class="divFlexRow" id="containerInputOrdenCompletada">
-                    <label for="ordenCompletada" id="labelOrdenCompletada">Selecciona para completar la orden " # {{id_orden}} ":</label>
-                    <input type="radio" name="ordenCompletada" id="checkOrdenCompletada" value="{{id_orden}}">
+                    <label for="ordenCompletada" id="labelOrdenCompletada">Selecciona para adelantar la producción en la orden " # {{id_orden}} ":</label>
+                    <input type="radio" name="guardarAdelanto" id="checkOrdenCompletada" value="{{id_orden}}" required>
                 </div>
             {% endfor %}
         </div>
     </form>
+    <script src="{% static 'js/scriptAdelantoProduccion.js' %}"></script>
 </body>
 </html>

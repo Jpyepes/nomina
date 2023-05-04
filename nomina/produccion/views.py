@@ -2,8 +2,10 @@ from django.shortcuts import render
 from .models import Producto, ProductoOrden, OrdenProduccion
 from datetime import datetime
 from datetime import datetime
+from django.contrib.auth.decorators import permission_required, login_required
 # Create your views here.
 
+@login_required
 def crearProducto (request):
     if request.method == 'POST':
         nombre = request.POST.get('nombreProducto')
@@ -22,6 +24,7 @@ def crearProducto (request):
         producto.save()
     return render(request, 'crearProducto.html')
 
+@login_required
 def crearOrden(request):
     fechaActual = datetime.today().strftime('%Y-%m-%d')
     if request.method == 'POST':
@@ -50,8 +53,82 @@ def crearOrden(request):
 
     return render(request, 'crearOrden.html',{'fechaActual': fechaActual})
 
+@login_required
+@permission_required("produccion.produccion")
 def verOrden(request):
     completarOrden(request)
+    maxZero = 6
+    ordenes = ProductoOrden.objects.all().order_by('-ordenProduccion__id')
+    datos_por_orden = {}
+    fecha_creacion = None
+    fecha_entrega = None
+    for objeto in ordenes:
+        objOrden = OrdenProduccion.objects.get(id=objeto.ordenProduccion.id)
+        if objOrden.ordenCompletada != '1':
+            id_orden = objeto.ordenProduccion.id
+            nombre_producto = objeto.producto.nombre
+            lote_producto = str(objeto.producto.lote).zfill(maxZero-len(str(objeto.producto.lote)))
+            und_producto = objeto.producto.unidades
+            cantidad = objeto.cantidadSolicitada
+            id_producto_orden = objeto.id
+            cantidad_producida = objeto.cantidadProducida
+
+            fecha_creacion = objOrden.fechaCreacion
+            fecha_entrega = objOrden.fechaEntrega
+            if id_orden not in datos_por_orden:
+                datos_por_orden[id_orden] = {'productos': [],'fecha_creacion': fecha_creacion, 'fecha_entrega': fecha_entrega}
+            datos_por_orden[id_orden]['productos'].append({'nombre': nombre_producto, 'cantidad': cantidad,'lote': lote_producto, 'unidades':und_producto, 'idProductoOrden':id_producto_orden, 'cantidadProducida':cantidad_producida})
+
+    # Crear un contexto con los datos de cada orden de producción
+    context = {'datos_por_orden': datos_por_orden, 'fechaCreacion': fecha_creacion,'fechaEntrega': fecha_entrega}
+    return render(request, 'verOrden.html', context)
+
+@login_required
+@permission_required("produccion.produccion")
+def completarOrden(request):
+    if request.method == 'POST':
+        adelantoProduccion = request.POST.get('datosProduccion')
+        idOrden = request.POST.get('guardarAdelanto')
+        dataTratada = adelantoProduccion.split(",")
+        idProducto = []
+        cantidadProducida = []
+        try:
+            for i in range(len(dataTratada)):
+                if i % 2 == 0:
+                    idProducto.append(dataTratada[i])
+                else:
+                    cantidadProducida.append(dataTratada[i])    
+        except:
+            print('Ha ocurrido un error, vuelva a intentarlo más tarde')
+
+        for i in range(len(idProducto)):
+            try:
+                if idProducto[i] != '':
+                    orden = OrdenProduccion.objects.get(id=idOrden)
+                    objProductoOrden = ProductoOrden.objects.get(id=idProducto[i])
+                    objProducto = Producto.objects.get(id=objProductoOrden.producto.id)
+                    if orden.id == objProductoOrden.ordenProduccion.id:
+                        objProductoOrden.cantidadProducida += int(cantidadProducida[i])
+                        objProductoOrden.save() 
+                        objProducto.stock +=  int(cantidadProducida[i])
+                        objProducto.save()
+            except:
+                print(f"No hay productos con el id {idProducto[i]}")
+        try:
+            productosOrden = orden.devolverProductos()
+            varAux = True
+            for producto in productosOrden:
+                if producto.cantidadProducida < producto.cantidadSolicitada: 
+                    varAux = False
+            if varAux:
+                orden.ordenCompletada = '1'
+                orden.save()
+        except:
+            print(f'No hay una orden de produccion con el id {idOrden}')
+            
+        
+@login_required
+def verPedido(request):
     ordenes = ProductoOrden.objects.all().order_by('-ordenProduccion__id')
     datos_por_orden = {}
     fecha_creacion = None
@@ -73,15 +150,7 @@ def verOrden(request):
 
     # Crear un contexto con los datos de cada orden de producción
     context = {'datos_por_orden': datos_por_orden, 'fechaCreacion': fecha_creacion,'fechaEntrega': fecha_entrega}
-    return render(request, 'verOrden.html', context)
-
-def completarOrden(request):
-    if request.method == 'POST':
-        ordenCompletada = request.POST.get('ordenCompletada')
-        updateOrden = OrdenProduccion.objects.get(id=ordenCompletada)
-        updateOrden.ordenCompletada = '1'
-        updateOrden.save()
-
+    return render(request, 'verPedido.html', context)
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 def pkNombre(nombreP):
     producto = Producto.objects.get(nombre=nombreP)
