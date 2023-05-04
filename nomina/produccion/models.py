@@ -13,10 +13,16 @@ class OrdenProduccion(models.Model):
     id = models.AutoField(primary_key=True)
     fechaCreacion = models.DateField(default='2023-04-25')
     fechaEntrega = models.DateField(default='2023-04-25')
-    ordenCompletada = models.CharField(max_length=1)
+    ordenCompletada = models.CharField(max_length=1, default='0')
+    
+    def devolverProductos(self):
+        productos = ProductoOrden.objects.filter(ordenProduccion=self.id)
+        return productos
+
 
 class ProductoOrden(models.Model): 
     cantidadSolicitada = models.PositiveIntegerField()
+    cantidadProducida = models.PositiveIntegerField(default=0)
     precio = models.PositiveIntegerField(default=0)
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     ordenProduccion = models.ForeignKey(OrdenProduccion, on_delete=models.CASCADE)

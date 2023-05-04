@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styleVerOrdenes.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styleVerPedidos.css' %}">
+    <title>Historial</title>
+</head>
+<body>
+    <div class="containerBtnOrdenes">
+        <a class="btn third" id="btnVerde" href="{% url 'landing' %}">Volver</a>
+    </div>
+    <div class="containerTablas divFlex">
+        {% for id_orden, datos in datos_por_orden.items %}
+            <p class="fechas"> <strong>Fecha de creación de la orden:</strong> {{ datos.fecha_creacion }}</p>
+            <p class="fechas"> <strong>Fecha de entrega de la orden:</strong> {{ datos.fecha_entrega }}</p>
+            <table class="tablaVerOrdenes" id="tablaPedido">
+                <thead>
+                    <tr>
+                        <th>Id de orden</th>
+                        <th>Nombre del producto</th>
+                        <th>Cantidad</th>
+                        <th>Inventario</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for producto in datos.productos %}
+                        <tr>
+                            <td class="centrarTextos">{{ id_orden }}</td>
+                            <td class="centrarTextos">{{ producto.nombre }}</td>
+                            <td class="centrarTextos">{{ producto.cantidad }}</td>
+                            {% if producto.stock >= producto.cantidad %}
+                            <td class="centrarTextos">{{ producto.stock }} {{ producto.unidades }} - Ok</td>
+                            {% else %}
+                            <td class="centrarTextos">{{ producto.stock }} {{ producto.unidades }} - X</td>
+                            {%endif%}
+
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endfor %}
+    </div>
+</body>
+</html>
