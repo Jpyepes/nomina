@@ -10,14 +10,28 @@
 </head>
 <body>
     <section class="containerLanding">
+        {% if userP %}
+        <a class="btn third" id="btnNaranja" href="{% url 'verOrden' %}">Ver Orden (es)</a>
+        {% elif userPedidos %}
+        <a class="btn third" href="{% url 'historialNomina' %}">Historial Nómina</a>
+        <a class="btn third" id="btnVerde" href="{% url 'verPedido' %}">Ver Pedido (s)</a>
+        <a class="btn third" id="btnNaranja" href="{% url 'verOrden' %}">Ver Orden (es)</a>
+        {% elif userAdm %}
         <a class="btn third" href="{% url 'crearEmpleado' %}">Crear Empleado</a>
         <a class="btn third" href="{% url 'actualizarEmpleado' %}">Actualizar empleado</a>
         <a class="btn third" href="{% url 'form' %}">Calcular Nómina</a>
         <a class="btn third" href="{% url 'historialNomina' %}">Historial Nómina</a>
         <a class="btn third" id="btnVerde" href="{% url 'crearProducto' %}">Agregar Productos</a>
         <a class="btn third" id="btnVerde" href="{% url 'crearOrden' %}">Crear Orden | Pedido</a>
-        <a class="btn third" id="btnVerde" href="{% url 'verPedido' %}">Ver Pedido (s)</a>
         <a class="btn third" id="btnNaranja" href="{% url 'verOrden' %}">Ver Orden (es)</a>
+        {%else%}
+        <a class="btn third" href="{% url 'crearEmpleado' %}">Crear Empleado</a>
+        <a class="btn third" href="{% url 'actualizarEmpleado' %}">Actualizar empleado</a>
+        <a class="btn third" href="{% url 'form' %}">Calcular Nómina</a>
+        <a class="btn third" href="{% url 'historialNomina' %}">Historial Nómina</a>
+        <a class="btn third" id="btnVerde" href="{% url 'crearProducto' %}">Agregar Productos</a>
+        <a class="btn third" id="btnVerde" href="{% url 'crearOrden' %}">Crear Orden | Pedido</a>
+        {%endif%}  
     </section>
 </body>
 </html>

@@ -7,7 +7,24 @@ from django.contrib.auth.decorators import permission_required, login_required
 # Create your views here.
 @login_required
 def landing(request):
-    return render(request, 'landing.html')
+    userPedidos = False
+    userP = False
+    userAdm = False
+    if request.user.is_authenticated:
+        print("User is logged in :)")
+        print(f"Username --> {request.user.username}")
+        print(f"Perms --> {request.user.get_group_permissions()}")
+        if len(request.user.get_group_permissions())>10:
+            userAdm = True
+        else:
+            if request.user.has_perm('produccion.change_ordenproduccion'):
+                userPedidos=True
+            if request.user.has_perm('produccion.view_ordenproduccion'):
+                userP=True
+
+    else:
+        print("User is not logged in :(")
+    return render(request, 'landing.html', {'userP':userP,'userPedidos':userPedidos, 'userAdm':userAdm})
 
 @login_required
 def form(request):

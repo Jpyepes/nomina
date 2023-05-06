@@ -54,7 +54,7 @@ def crearOrden(request):
     return render(request, 'crearOrden.html',{'fechaActual': fechaActual})
 
 @login_required
-@permission_required("produccion.produccion")
+@permission_required('produccion.view_ordenproduccion')
 def verOrden(request):
     completarOrden(request)
     maxZero = 6
@@ -84,7 +84,6 @@ def verOrden(request):
     return render(request, 'verOrden.html', context)
 
 @login_required
-@permission_required("produccion.produccion")
 def completarOrden(request):
     if request.method == 'POST':
         adelantoProduccion = request.POST.get('datosProduccion')
@@ -128,6 +127,7 @@ def completarOrden(request):
             
         
 @login_required
+@permission_required('produccion.change_ordenproduccion')
 def verPedido(request):
     ordenes = ProductoOrden.objects.all().order_by('-ordenProduccion__id')
     datos_por_orden = {}
