@@ -12,7 +12,6 @@ def crearProducto (request):
         stock = request.POST.get('stock')
         unidades = request.POST.get('unidades')
         precio = request.POST.get('precio')
-        print(unidades)
         und = 'Und'
         if unidades == 'on':
             und = 'Gr'
@@ -54,7 +53,7 @@ def crearOrden(request):
     return render(request, 'crearOrden.html',{'fechaActual': fechaActual})
 
 @login_required
-@permission_required('produccion.view_ordenproduccion')
+@permission_required('produccion.change_ordenproduccion')
 def verOrden(request):
     completarOrden(request)
     maxZero = 6
@@ -151,6 +150,14 @@ def verPedido(request):
     # Crear un contexto con los datos de cada orden de producción
     context = {'datos_por_orden': datos_por_orden, 'fechaCreacion': fecha_creacion,'fechaEntrega': fecha_entrega}
     return render(request, 'verPedido.html', context)
+
+def inventario(request):
+    maxZero = 6
+    productos = Producto.objects.all()
+    listaProductos = []
+    for producto in productos:
+       listaProductos.append({'nombre':producto.nombre,'stock':producto.stock,'und': producto.unidades,'lote':str(producto.lote).zfill(maxZero-len(str(producto.lote)))})
+    return render(request, 'inventario.html', {'productos':listaProductos})
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 def pkNombre(nombreP):
     producto = Producto.objects.get(nombre=nombreP)

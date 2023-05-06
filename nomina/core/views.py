@@ -14,13 +14,12 @@ def landing(request):
         print("User is logged in :)")
         print(f"Username --> {request.user.username}")
         print(f"Perms --> {request.user.get_group_permissions()}")
-        if len(request.user.get_group_permissions())>10:
+        if request.user.username == 'jpyepes':
             userAdm = True
-        else:
-            if request.user.has_perm('produccion.change_ordenproduccion'):
-                userPedidos=True
-            if request.user.has_perm('produccion.view_ordenproduccion'):
-                userP=True
+        if request.user.username == 'pedidoscr':
+            userPedidos = True
+        if request.user.username == 'produccioncr':
+            userP = True
 
     else:
         print("User is not logged in :(")
