@@ -15,20 +15,20 @@
     <div class="containerTablas divFlex">
             <table class="tablaVerOrdenes">
                 <thead>
-                    <tr>
-                        <th>Producto</th>
-                        <th>Stock Actual</th>
-                        <th>Unidades</th>
-                        <th>Lote</th>
+                    <tr> 
+                        <th class="thInventario">Producto</th>
+                        <th class="thInventario">Stock Actual</th>
+                        <th class="thInventario">Unidades</th>
+                        <th class="thInventario">Lote</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for producto in productos %}
                         <tr>
-                            <td class="centrarTextos">{{ producto.nombre }}</td>
-                            <td class="centrarTextos">{{ producto.stock }}</td>
-                            <td class="centrarTextos">{{ producto.und }}</td>
-                            <td class="centrarTextos">{{ producto.lote }}</td>
+                            <td class="centrarTextos tdInventario">{{ producto.nombre }}</td>
+                            <td class="centrarTextos tdInventario">{{ producto.stock }}</td>
+                            <td class="centrarTextos tdInventario">{{ producto.und }}</td>
+                            <td class="centrarTextos tdInventario">{{ producto.lote }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>

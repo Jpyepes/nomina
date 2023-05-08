@@ -6,3 +6,12 @@ table{
     margin-bottom: 0px;
     font-size: 50px;
 }
+.thInventario{
+    background-color: #3498db;
+    color: whitesmoke;
+    font-weight: lighter;
+    border: 1px solid black;
+}
+.tdInventario{
+    border: 1px solid black;
+}
