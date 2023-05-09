@@ -31,4 +31,6 @@ urlpatterns = [
     path('verOrden/', produccionViews.verOrden, name='verOrden'),
     path('verPedido/', produccionViews.verPedido, name='verPedido'),
     path('inventario/', produccionViews.inventario, name='inventario'),
+    path('crearOrdenDespacho/', produccionViews.ordenDespacho, name='ordenDespacho'),
+    path('verOrdenDespacho/', produccionViews.verOrdenDespacho, name='verOrdenDespacho'),
 ]

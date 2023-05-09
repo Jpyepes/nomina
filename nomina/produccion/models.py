@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 
 # Create your models here.
 class Producto(models.Model):
@@ -14,6 +15,8 @@ class OrdenProduccion(models.Model):
     fechaCreacion = models.DateField(default='2023-04-25')
     fechaEntrega = models.DateField(default='2023-04-25')
     ordenCompletada = models.CharField(max_length=1, default='0')
+    ordenDespacho = models.CharField(max_length=1, default='0') 
+    ordenDespachoCompletada = models.CharField(max_length=1, default='0')
     
     def devolverProductos(self):
         productos = ProductoOrden.objects.filter(ordenProduccion=self.id)

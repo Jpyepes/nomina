@@ -2,6 +2,7 @@ from django.shortcuts import render
 from datetime import datetime, timedelta
 from .models import Nomina
 from .models import Empleado
+from produccion.models import OrdenProduccion
 from django.contrib.auth.models import Group, Permission, User
 from django.contrib.auth.decorators import permission_required, login_required
 # Create your views here.
@@ -10,6 +11,8 @@ def landing(request):
     userPedidos = False
     userP = False
     userAdm = False
+    orden = OrdenProduccion.objects.filter(ordenCompletada = '0', ordenDespacho = '0')
+    ordenDespacho = OrdenProduccion.objects.filter(ordenCompletada = '0', ordenDespacho = '1', ordenDespachoCompletada = '0')
     if request.user.is_authenticated:
         print("User is logged in :)")
         print(f"Username --> {request.user.username}")
@@ -20,10 +23,10 @@ def landing(request):
             userPedidos = True
         if request.user.username == 'produccioncr':
             userP = True
-
+        print(len(orden))
     else:
         print("User is not logged in :(")
-    return render(request, 'landing.html', {'userP':userP,'userPedidos':userPedidos, 'userAdm':userAdm})
+    return render(request, 'landing.html', {'userP':userP,'userPedidos':userPedidos, 'userAdm':userAdm, 'notificacionOrden':len(orden), 'notificacionOrdenD':len(ordenDespacho)})
 
 @login_required
 def form(request):
