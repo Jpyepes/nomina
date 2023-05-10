@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    {%load static%}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Menú</title>
+</head>
+<body>
+    <section class="containerLanding">
+        {% if userP %}
+            {% if notificacionOrdenD %}
+                <a class="btn third" id="btnNaranja" href="{% url 'verOrdenDespacho' %}">Ver {{notificacionOrdenD}} Orden de despacho</a>
+            {% else %}
+                <a class="btn third" id="btnNaranja" href="{% url 'verOrdenDespacho' %}">Ver {{notificacionOrdenD}} Ordenes de despacho</a>
+            {%endif%}
+            {% if notificacionOrden %}
+            <a class="btn third" id="btnNaranja" href="{% url 'verOrden' %}">Ver {{notificacionOrden}} Orden de producción</a>
+            {% else %}
+            <a class="btn third" id="btnNaranja" href="{% url 'verOrden' %}">Ver {{notificacionOrden}} Ordenes de producción</a>
+            {%endif%}
+            <a class="btn third" id="btnNaranja" href="{% url 'inventario' %}">Inventario</a>
+        {% elif userPedidos %}
+            <a class="btn third" href="{% url 'historialNomina' %}">Historial Nómina</a>
+            <a class="btn third" id="btnVerde" href="{% url 'verPedido' %}">Ver Pedido (s)</a>
+            <a class="btn third" id="btnVerde" href="{% url 'ordenDespacho' %}">Crear Orden Despacho</a>
+            {% if notificacionOrdenD %}
+                <a class="btn third" id="btnNaranja" href="{% url 'verOrdenDespacho' %}">Ver {{notificacionOrdenD}} Orden de despacho</a>
+            {% else %}
+                <a class="btn third" id="btnNaranja" href="{% url 'verOrdenDespacho' %}">Ver {{notificacionOrdenD}} Ordenes de despacho</a>
+            {%endif%}
+            {% if notificacionOrden %}
+            <a class="btn third" id="btnNaranja" href="{% url 'verOrden' %}">Ver {{notificacionOrden}} Orden de producción</a>
+            {% else %}
+            <a class="btn third" id="btnNaranja" href="{% url 'verOrden' %}">Ver {{notificacionOrden}} Ordenes de producción</a>
+            {%endif%}
+            <a class="btn third" id="btnNaranja" href="{% url 'inventario' %}">Inventario</a>
+        {% elif userAdm %}
+            <a class="btn third" href="{% url 'crearEmpleado' %}">Crear Empleado</a>
+            <a class="btn third" href="{% url 'actualizarEmpleado' %}">Actualizar empleado</a>
+            <a class="btn third" href="{% url 'form' %}">Calcular Nómina</a>
+            <a class="btn third" href="{% url 'historialNomina' %}">Historial Nómina</a>
+            <a class="btn third" id="btnVerde" href="{% url 'crearProducto' %}">Agregar Productos</a>
+            <a class="btn third" id="btnVerde" href="{% url 'crearOrden' %}">Crear Orden | Pedido</a>
+            <a class="btn third" id="btnVerde" href="{% url 'ordenDespacho' %}">Crear Orden Despacho</a>
+            <a class="btn third" id="btnVerde" href="{% url 'verPedido' %}">Ver Pedido (s)</a>
+            {% if notificacionOrdenD %}
+                <a class="btn third" id="btnNaranja" href="{% url 'verOrdenDespacho' %}">Ver {{notificacionOrdenD}} Orden de despacho</a>
+            {% else %}
+                <a class="btn third" id="btnNaranja" href="{% url 'verOrdenDespacho' %}">Ver {{notificacionOrdenD}} Ordenes de despacho</a>
+            {%endif%}
+            {% if notificacionOrden %}
+                <a class="btn third" id="btnNaranja" href="{% url 'verOrden' %}">Ver {{notificacionOrden}} Orden de producción</a>
+            {% else %}
+                <a class="btn third" id="btnNaranja" href="{% url 'verOrden' %}">Ver {{notificacionOrden}} Ordenes de producción</a>
+            {%endif%}
+            <a class="btn third" id="btnNaranja" href="{% url 'inventario' %}">Inventario</a>
+        {%endif%}  
+    </section>
+</body>
+</html>
