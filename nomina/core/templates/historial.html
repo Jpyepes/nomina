@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Historial</title>
+</head>
+<body>
+    <form method="POST" class="divFlex">
+        {% csrf_token %}
+        <div class="divFlexRow">
+            <label for="empleadoH" class="labelInput">Empleado:</label>
+            <select name="empleadoH" class="inputCalculo">
+                <option value="Nahomy Ninibeth">Nahomy Ninibeth</option>
+                <option value="Manuela Ospina">Manuela Ospina</option>
+                <option value="Luisa Ospina">Luisa Ospina</option>
+                <option value="Alan Vargas">Alan Vargas</option>
+                <option value="Carlos Alberto Gomez">Carlos Alberto Gomez</option>
+                <option value="Yuliana Arguello">Yuliana Arguello</option>
+                <option value="Miguel Angel Lopez">Miguel Angel Lopez</option>
+                <option value="Juan Pablo Yepes">Juan Pablo Yepes</option>
+            </select>
+        </div>
+        <button type="submit" class="btn third">Buscar Historial</button>
+        <a class="btn third" id="btnVerde" href="{% url 'landing' %}">Volver</a>
+        {% if nombre %}
+            <p class="empleadoCalculo">Empleado: {{nombre}} con Cédula: {{cedula}}</p>
+        {%endif%}
+    </form>
+    {% for calculo in objetoNomina %}
+    <div class="historialCalculo">
+        <h2 class="idCalculo centrarTexto" >ID Nomina: {{calculo.id}}</h2>
+        <div class="containerFlexRow">
+            <p class="campoCalculo centrarTexto">{{calculo.fechaInicio}} - {{calculo.fechaFin}}</p>
+            <p class="campoCalculo centrarTexto"><strong>Extras Diurnas:</strong> {{calculo.extrasDiurnas}}</p>
+            <p class="campoCalculo centrarTexto"><strong>Extras Nocturnas:</strong> {{calculo.extrasNocturnas}}</p>
+            <p class="campoCalculo centrarTexto"><strong>Recargos Nocturnos:</strong> {{calculo.recargosNocturnos}}</p>
+            <p class="campoCalculo centrarTexto"><strong>Recargos Diurnos Festivos:</strong> {{calculo.horasFestivas}}</p>
+            <p class="campoCalculo centrarTexto"><strong>Extras Diurnas Festivas:</strong> {{calculo.extrasDF}}</p>
+            <p class="campoCalculo centrarTexto"><strong>Extras Nocturnas Festivas:</strong> {{calculo.extrasNF}}</p>
+            <p class="campoCalculo centrarTexto"><strong>Recargos Nocturnos Festivos:</strong> {{calculo.rNF}}</p>
+            <p class="campoCalculo centrarTexto"><strong>Devengado:</strong> {{calculo.devengado}}</p>
+            <p class="campoCalculo centrarTexto"><strong>Total:</strong> {{calculo.total}}</p>
+        </div>
+    </div>
+    {% endfor %}
+</body>
+</html>
