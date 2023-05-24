@@ -53,7 +53,7 @@ def crearOrden(request):
     return render(request, 'crearOrden.html',{'fechaActual': fechaActual})
 
 @login_required
-@permission_required('produccion.change_ordenproduccion')
+@permission_required('produccion.view_ordenproduccion')
 def verOrden(request):
     completarOrden(request)
     maxZero = 6
@@ -83,6 +83,7 @@ def verOrden(request):
     return render(request, 'verOrden.html', context)
 
 @login_required
+@permission_required('produccion.change_ordenproduccion')
 def completarOrden(request):
     if request.method == 'POST':
         adelantoProduccion = request.POST.get('datosProduccion')
@@ -151,6 +152,8 @@ def verPedido(request):
     context = {'datos_por_orden': datos_por_orden, 'fechaCreacion': fecha_creacion,'fechaEntrega': fecha_entrega}
     return render(request, 'verPedido.html', context)
 
+@login_required
+@permission_required('produccion.view_ordenproduccion')
 def inventario(request):
     maxZero = 6
     productos = Producto.objects.all()
@@ -189,7 +192,7 @@ def ordenDespacho(request):
     return render(request, 'ordenDespacho.html',{'msgExito':msgExito})
 
 @login_required
-@permission_required('produccion.change_ordenproduccion')
+@permission_required('produccion.view_ordenproduccion')
 def verOrdenDespacho(request):
     completarOrdenDespacho(request)
     userAdm = False
@@ -219,6 +222,8 @@ def verOrdenDespacho(request):
     context = {'datos_por_orden': datos_por_orden, 'fechaCreacion': fecha_creacion,'fechaEntrega': fecha_entrega, 'userAdm':userAdm}
     return render(request, 'verOrdenDespacho.html', context)
 
+@login_required
+@permission_required('produccion.change_ordenproduccion')
 def completarOrdenDespacho(request):
     msgError= ''
     varAux = True

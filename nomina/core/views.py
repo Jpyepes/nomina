@@ -16,7 +16,7 @@ def landing(request):
     if request.user.is_authenticated:
         print("User is logged in :)")
         print(f"Username --> {request.user.username}")
-        print(f"Perms --> {request.user.get_group_permissions()}")
+        print(f"Perms --> {request.user.get_all_permissions()}")
         if request.user.username == 'jpyepes':
             userAdm = True
         if request.user.username == 'pedidoscr':
