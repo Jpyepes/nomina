@@ -186,8 +186,6 @@ def ordenDespacho(request):
             relacionProducto = pkNombre(productos[i])
             varAux = ProductoOrden(cantidadSolicitada=cantidad[i],precio=calcularPrecioPO(productos[i],cantidad[i]),producto=relacionProducto,ordenProduccion=orden)
             varAux.save()
-            relacionProducto.lote = relacionProducto.lote + 1
-            relacionProducto.save()
         msgExito = '¡Orden creada satisfactoriamente!'
     return render(request, 'ordenDespacho.html',{'msgExito':msgExito})
 
