@@ -25,6 +25,8 @@ def crearProducto (request):
 @login_required
 @permission_required('produccion.add_ordenproduccion')
 def crearOrden(request):
+    productosBd = Producto.objects.all()
+    print(productosBd[0].nombre)
     fechaActual = datetime.today().strftime('%Y-%m-%d')
     if request.method == 'POST':
         fechaEntrega = request.POST.get('fechaEntrega')
@@ -49,8 +51,7 @@ def crearOrden(request):
             varAux.save()
             relacionProducto.lote = relacionProducto.lote + 1
             relacionProducto.save()
-
-    return render(request, 'crearOrden.html',{'fechaActual': fechaActual})
+    return render(request, 'crearOrden.html',{'fechaActual': fechaActual, 'productosBd': productosBd})
 
 @login_required
 @permission_required('produccion.view_ordenproduccion')
@@ -165,6 +166,7 @@ def inventario(request):
 @login_required
 @permission_required('produccion.add_ordenproduccion')
 def ordenDespacho(request):
+    productosBd = Producto.objects.all()
     msgExito = ''
     if request.method == 'POST':
         data = request.POST.get('datosProducto')
@@ -187,7 +189,7 @@ def ordenDespacho(request):
             varAux = ProductoOrden(cantidadSolicitada=cantidad[i],precio=calcularPrecioPO(productos[i],cantidad[i]),producto=relacionProducto,ordenProduccion=orden)
             varAux.save()
         msgExito = '¡Orden creada satisfactoriamente!'
-    return render(request, 'ordenDespacho.html',{'msgExito':msgExito})
+    return render(request, 'ordenDespacho.html',{'msgExito':msgExito, 'productosBd':productosBd})
 
 @login_required
 @permission_required('produccion.view_ordenproduccion')

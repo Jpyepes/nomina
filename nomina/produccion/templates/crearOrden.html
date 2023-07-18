@@ -16,25 +16,9 @@
             <div class="divFlexRow" id="inputOrden">
             <label for="productoOrden" class="labelInput">Producto:</label>
             <select name="productoOrden" class="inputCalculo" id="inputGrande">
-                <option value="Pollo Menu">Pollo Menu</option>
-                <option value="Cerdo Menu">Cerdo Menu</option>
-                <option value="Costilla Menu">Costilla Menu</option>
-                <option value="Chicharron">Chicharron</option>
-                <option value="Pulled Pork">Pulled Pork</option>
-                <option value="Panceta Ahumada">Panceta Ahumada</option>
-                <option value="1/2 Rack">1/2 Rack</option>
-                <option value="Picada Mediana Pollo">Picada Mediana Pollo</option>
-                <option value="Picada Mediana Cerdo">Picada Mediana Cerdo</option>
-                <option value="Picada Mediana Res">Picada Mediana Res</option>
-                <option value="Picada Grande Pollo">Picada Grande Pollo</option>
-                <option value="Picada Grande Cerdo">Picada Grande Cerdo</option>
-                <option value="Picada Grande Res">Picada Grande Res</option>
-                <option value="Picada Familiar Pollo">Picada Familiar Pollo</option>
-                <option value="Picada Familiar Cerdo">Picada Familiar Cerdo</option>
-                <option value="Picada Familiar Res">Picada Familiar Res</option>
-                <option value="Carne Hamburguesa">Carne Hamburguesa</option>
-                <option value="Eva">Eva</option>
-                <option value="Caiman">Caiman</option>
+                {% for producto in productosBd%}
+                <option value="{{producto.nombre}}">{{producto.nombre}}</option>
+                {% endfor %}
             </select>
             </div>
             <div class="divFlexRow" id="inputOrden">
